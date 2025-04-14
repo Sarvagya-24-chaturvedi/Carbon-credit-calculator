@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Credit Calculator</title>
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --secondary: #81C784;
+            --light: #E8F5E9;
+            --dark: #1B5E20;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        header h1 {
+            color: var(--dark);
+            margin: 0;
+            font-size: 32px;
+        }
+        
+        header p {
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .card h2 {
+            color: var(--primary);
+            margin-top: 0;
+            font-size: 22px;
+            border-bottom: 1px solid var(--light);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        input[type="number"]:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .unit {
+            color: #777;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: var(--dark);
+        }
+        
+        .results {
+            display: none;
+            transition: all 0.5s ease;
+        }
+        
+        .results-visible {
+            display: block;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .result-label {
+            font-weight: 500;
+        }
+        
+        .result-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .total-credits {
+            background-color: var(--light);
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .total-credits h3 {
+            margin: 0 0 10px 0;
+            color: var(--dark);
+        }
+        
+        .credit-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .info-box {
+            background-color: #E3F2FD;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #0D47A1;
+        }
+        
+        .two-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .column {
+            flex: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .two-columns {
+                flex-direction: column;
+            }
+            
+            .container {
+                margin: 15px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Carbon Credit Calculator</h1>
+            <p>Calculate your carbon credits based on your carbon footprint data</p>
+        </header>
+        
+        <div class="two-columns">
+            <div class="column">
+                <div class="card">
+                    <h2>Energy Consumption</h2>
+                    <div class="form-group">
+                        <label for="electricity">Electricity Usage <span class="unit">(kWh/month)</span></label>
+                        <input type="number" id="electricity" placeholder="e.g., 500">
+                    </div>
+                    <div class="form-group">
+                        <label for="natural-gas">Natural Gas <span class="unit">(cubic meters/month)</span></label>
+                        <input type="number" id="natural-gas" placeholder="e.g., 100">
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>Transportation</h2>
+                    <div class="form-group">
+                        <label for="vehicle-km">Vehicle Distance <span class="unit">(km/month)</span></label>
+                        <input type="number" id="vehicle-km" placeholder="e.g., 1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="flights">Flight Distance <span class="unit">(km/year)</span></label>
+                        <input type="number" id="flights" placeholder="e.g., 10000">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="column">
+                <div class="card">
+                    <h2>Other Emissions</h2>
+                    <div class="form-group">
+                        <label for="waste">Waste Production <span class="unit">(kg/month)</span></label>
+                        <input type="number" id="waste" placeholder="e.g., 20">
+                    </div>
+                    <div class="form-group">
+                        <label for="water">Water Usage <span class="unit">(cubic meters/month)</span></label>
+                        <input type="number" id="water" placeholder="e.g., 15">
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>Offset Activities</h2>
+                    <div class="form-group">
+                        <label for="renewable">Renewable Energy <span class="unit">(kWh/month)</span></label>
+                        <input type="number" id="renewable" placeholder="e.g., 100">
+                    </div>
+                    <div class="form-group">
+                        <label for="trees">Trees Planted <span class="unit">(per year)</span></label>
+                        <input type="number" id="trees" placeholder="e.g., 5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin: 25px 0;">
+            <button id="calculate-btn">Calculate Carbon Credits</button>
+        </div>
+        
+        <div class="card results" id="results-section">
+            <h2>Your Carbon Footprint Results</h2>
+            
+            <div>
+                <div class="result-item">
+                    <span class="result-label">Energy Emissions:</span>
+                    <span class="result-value" id="energy-result">0 kg CO₂e</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Transportation Emissions:</span>
+                    <span class="result-value" id="transport-result">0 kg CO₂e</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Other Emissions:</span>
+                    <span class="result-value" id="other-result">0 kg CO₂e</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Offset Activities:</span>
+                    <span class="result-value" id="offset-result">0 kg CO₂e</span>
+                </div>
+            </div>
+            
+            <div class="total-credits">
+                <h3>Total Carbon Credits Needed</h3>
+                <div class="credit-value" id="total-credits">0</div>
+                <p>carbon credits per year</p>
+            </div>
+            
+            <div class="info-box">
+                <strong>What are carbon credits?</strong> Carbon credits represent one metric ton of carbon dioxide equivalent that is either removed from the atmosphere or prevented from being emitted. Purchasing carbon credits helps finance projects that reduce greenhouse gas emissions.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculate-btn').addEventListener('click', function() {
+            // Get input values
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const naturalGas = parseFloat(document.getElementById('natural-gas').value) || 0;
+            const vehicleKm = parseFloat(document.getElementById('vehicle-km').value) || 0;
+            const flights = parseFloat(document.getElementById('flights').value) || 0;
+            const waste = parseFloat(document.getElementById('waste').value) || 0;
+            const water = parseFloat(document.getElementById('water').value) || 0;
+            const renewable = parseFloat(document.getElementById('renewable').value) || 0;
+            const trees = parseFloat(document.getElementById('trees').value) || 0;
+            
+            // Carbon emission factors (example values - these would be adjusted for accuracy)
+            const electricityFactor = 0.5; // kg CO2e per kWh
+            const naturalGasFactor = 2.1; // kg CO2e per cubic meter
+            const vehicleFactor = 0.18; // kg CO2e per km
+            const flightFactor = 0.2; // kg CO2e per km
+            const wasteFactor = 2.5; // kg CO2e per kg waste
+            const waterFactor = 0.376; // kg CO2e per cubic meter
+            const renewableOffset = 0.5; // kg CO2e offset per kWh
+            const treeOffset = 25; // kg CO2e offset per tree per year
+            
+            // Calculate emissions
+            const energyEmissions = (electricity * electricityFactor) + (naturalGas * naturalGasFactor);
+            const energyEmissionsYearly = energyEmissions * 12;
+            
+            const transportEmissions = (vehicleKm * vehicleFactor * 12) + (flights * flightFactor);
+            
+            const otherEmissions = ((waste * wasteFactor) + (water * waterFactor)) * 12;
+            
+            const offsetEmissions = (renewable * renewableOffset * 12) + (trees * treeOffset);
+            
+            // Calculate total carbon footprint and credits needed
+            const totalEmissions = energyEmissionsYearly + transportEmissions + otherEmissions;
+            const netEmissions = totalEmissions - offsetEmissions;
+            const carbonCreditsNeeded = Math.max(0, netEmissions / 1000); // Convert kg to metric tons
+            
+            // Update results
+            document.getElementById('energy-result').textContent = energyEmissionsYearly.toFixed(2) + ' kg CO₂e';
+            document.getElementById('transport-result').textContent = transportEmissions.toFixed(2) + ' kg CO₂e';
+            document.getElementById('other-result').textContent = otherEmissions.toFixed(2) + ' kg CO₂e';
+            document.getElementById('offset-result').textContent = offsetEmissions.toFixed(2) + ' kg CO₂e';
+            document.getElementById('total-credits').textContent = carbonCreditsNeeded.toFixed(2);
+            
+            // Show results section
+            document.getElementById('results-section').classList.add('results-visible');
+        });
+    </script>
+</body>
+</html>
