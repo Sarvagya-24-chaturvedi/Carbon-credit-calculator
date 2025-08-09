@@ -1,22 +1,22 @@
-# 🧮 Carbon Credit Calculator
-A simple tool to estimate carbon credits based on carbon dioxide emissions. This calculator helps individuals and organizations quantify their environmental impact and understand how many carbon credits are needed to offset it.
+# 🧮 Carbon Emission Calculator
+A simple and efficient tool to estimate carbon dioxide (CO₂) emissions based on user inputs such as electricity usage, fuel consumption, travel distance, and other activities. Designed to raise environmental awareness and promote sustainable choices.
 
 ## 🌍 Purpose
-The Carbon Credit Calculator is designed to:
+The Carbon Emission Calculator is designed to:
 - Estimate the CO₂ emissions from user input.
 - Calculate the equivalent number of carbon credits needed.
 - Support broader initiatives in sustainability and carbon offsetting.
 
 ## 🔧 Features
 - 📥 Takes CO₂ emissions as input.
-- 🧮 Calculates carbon credits using standard formulas.
+- 🧮 Calculates carbon emissions using standard formulas.
 - 🖥️ Simple, user-friendly interface for ease of access.
 - 🌐 Ready for integration with blockchain-based platforms or environmental dashboards.
 
 ## 📌 How It Works
 1. User inputs the amount of CO₂ emitted (in kg or tonnes).
-2. The calculator applies a defined formula or conversion factor.
-3. The result shows the number of carbon credits required to offset the emissions.
+2. Click Calculate to view estimated CO₂ emissions.
+3. Get insights on your carbon footprint and possible reduction measures.
 
 ## 🏗️ Tech Stack
 - **Frontend:** HTML, CSS, JavaScript
